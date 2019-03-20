@@ -2,6 +2,8 @@
 
 function npmInit {
   if [ -e ./package.json ]; then
+    echo 'package.json already exists'
+  else
     echo '{
   "name": "@upstatement/project-name",
   "version": "0.0.0",
@@ -14,9 +16,6 @@ function npmInit {
   "dependencies": {},
   "devDependencies": {}
 }' > package.json
-
-  else
-    echo 'package.json already exists'
   fi
 }
 
@@ -67,7 +66,6 @@ function addHooks {
   }
 }' >> temp2.txt
 
-
       eval "mv temp2.txt package.json && rm temp.txt"
       ;;
     n|N )
@@ -80,12 +78,6 @@ function addHooks {
 SPACING=2
 
 function scaffold {
-  if [ -e ./package-lock.json ]; then
-    eval "rm package-lock.json"
-  fi
-
-  eval "rm -rf node_modules"
-
   # create files
   eval "touch .editorconfig prettier.config.js .eslintrc .gitignore"
 
