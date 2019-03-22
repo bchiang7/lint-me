@@ -51,7 +51,6 @@ You should end up with the following files at the root of your project
 - `.editorconfig`
 - `.eslintrc`
 - `.gitignore`
-- `install.sh`
 - `package-lock.json`
 - `package.json`
 - `prettier.config.js`
