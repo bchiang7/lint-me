@@ -14,3 +14,7 @@ yarn-error.log*
 
 .vscode/
 
+.eslintrc
+package-lock.json
+package.json
+prettier.config.js
