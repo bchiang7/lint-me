@@ -19,25 +19,6 @@ function npmInit {
   fi
 }
 
-function gitIgnore {
-  echo 'node_modules
-
-.DS_Store
-
-.env
-.env.local
-.env.development
-.env.test
-.env.production
-
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-
-.vscode/
-' > .gitignore
-}
-
 function addHooks {
   read -p "Do you want to use pre-commit hooks? (y/n) " choice
   case "$choice" in
@@ -79,14 +60,10 @@ SPACING=2
 
 function scaffold {
   # create files
-  eval "touch .editorconfig prettier.config.js .eslintrc .gitignore"
+  eval "touch .editorconfig prettier.config.js .eslintrc"
 
   # init package.json
   npmInit
-
-  # add things to gitignore
-  gitIgnore
-
 
   if [ -z "$1" ]; then
     eval "npm install -D @upstatement/eslint-config @upstatement/prettier-config eslint babel-eslint prettier eslint-config-prettier"
@@ -141,13 +118,13 @@ function scaffold {
 
   echo "root = true
 
-  [*]
-  charset = utf-8
-  indent_style = space
-  indent_size = $SPACING
-  end_of_line = lf
-  insert_final_newline = true
-  trim_trailing_whitespace = true" > .editorconfig
+[*]
+charset = utf-8
+indent_style = space
+indent_size = $SPACING
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true" > .editorconfig
 
   if [ $SPACING = 4 ]; then
     echo "module.exports = require('@upstatement/prettier-config/four-spaces');" > prettier.config.js
