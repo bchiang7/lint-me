@@ -23,9 +23,9 @@ function addHooks {
   read -p "Do you want to use pre-commit hooks? (y/n) " choice
   case "$choice" in
     y|Y )
-      echo "Installing husky, pretty-quick, and lint-staged packages..."
+      echo "Installing husky and lint-staged packages..."
 
-      eval "npm install -D husky pretty-quick lint-staged"
+      eval "npm install -D husky lint-staged"
 
       INSERT_HERE=$(( $(wc -l < package.json) - 1 ))
 
@@ -34,16 +34,20 @@ function addHooks {
 
       eval "sed '$INSERT_HERE s/$/,/' temp.txt > temp2.txt"
 
-      echo '  "husky": {
-    "hooks": {
-      "pre-commit": "pretty-quick --staged && lint-staged"
-    }
-  },
-  "lint-staged": {
+      echo '  "lint-staged": {
+    "*.{js,css,json,md}": [
+      "prettier --write",
+      "git add"
+    ],
     "*.js": [
       "eslint --fix",
       "git add"
     ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   }
 }' >> temp2.txt
 
